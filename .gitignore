@@ -1,3 +1,8 @@
 /node_modules
 
+#my own
 token.txt
+
+#compiling files
+bot.js
+IUser.js
