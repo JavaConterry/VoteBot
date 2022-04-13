@@ -4,7 +4,6 @@ import * as fs from 'fs';
 
 const BOT_TOKEN = fs.readFileSync('token.txt','utf8');
 const bot = new Telegraf(BOT_TOKEN)
-let data = JSON.parse(fs.readFileSync('datasource.json','utf8'));
 
 function createUser(config: IUser):{username:string; vote_status:boolean} {
     let newUser = {username:"common username", vote_status:false};
@@ -12,22 +11,18 @@ function createUser(config: IUser):{username:string; vote_status:boolean} {
     return newUser;
 }
 
-let myUser = createUser({username:"Fill"})
-pushUserIntoJSON(myUser)
-
 function pushUserIntoJSON(userToPush:IUser){
+    let data = JSON.parse(fs.readFileSync('datasource.json','utf8'));
     const usersDataLength = data.user.length
     for (let i = 0; i < usersDataLength; i++) {
         if(data.user[i].username==userToPush.username){
-            console.log("username already exists")
-            return
+            return "username already exists"
         }
     }
     data.user[usersDataLength] = userToPush
+    fs.writeFileSync('datasource.json', JSON.stringify(data, null, 2));
+    return "registration seccess"
 }
-
-fs.writeFileSync('datasource.json', JSON.stringify(data, null, 2));
-console.log(data)
 
 //logic {{{{{{{{
 bot.start(ctx => {
@@ -39,11 +34,14 @@ bot.command('get_random', ctx => {
 })
 
 bot.command('register', ctx => {
-    ctx.reply("registration seccess")
+    let log_result = pushUserIntoJSON({username : ctx.update.message.from.username})
+    ctx.reply(log_result)
 })
 
 
-bot.on('text', (ctx) => ctx.reply('Hello World'))
+bot.on('text', (ctx) => {
+    ctx.reply('Hello World')
+})
 //logic }}}}}}}}
 
 
