@@ -1,5 +1,6 @@
 const { Telegraf } = require('telegraf')
 import { pushUserIntoJSON } from './UserService'
+import { showUserTokensByUsername } from './UserService'
 import * as fs from 'fs';
 
 const BOT_TOKEN = fs.readFileSync('token.txt','utf8');
@@ -15,8 +16,13 @@ bot.command('get_random', ctx => {
 })
 
 bot.command('register', ctx => {
-    let log_result = pushUserIntoJSON({username : ctx.update.message.from.username})
+    let log_result = pushUserIntoJSON({username : ctx.update.message.from.username, vote_status: false, tokens: 100})
     ctx.reply(log_result)
+})
+
+bot.command('mytokenbalance', ctx => {
+    let tokenBalance = 100
+    ctx.reply('number of tokens: ' + showUserTokensByUsername(ctx.update.message.from.username))
 })
 
 

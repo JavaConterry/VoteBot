@@ -1,21 +1,14 @@
 {
   "user": [
     {
-      "username": "Mike",
-      "vote_status": false
+      "username": "GroupAnonymousBot",
+      "vote_status": false,
+      "tokens": 100
     },
     {
-      "username": "Fill",
-      "vote_status": false
-    },
-    {
-      "username": "Conterry"
-    },
-    {
-      "username": "aetrnm"
-    },
-    {
-      "username": "GroupAnonymousBot"
+      "username": "Conterry",
+      "vote_status": false,
+      "tokens": 100
     }
   ]
 }
