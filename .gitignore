@@ -6,3 +6,4 @@ token.txt
 #compiling files
 bot.js
 IUser.js
+UserService.js
