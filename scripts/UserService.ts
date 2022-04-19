@@ -2,8 +2,8 @@ import { IUser } from './IUser'
 import * as fs from 'fs';
 
 
-function createUser(config: IUser):{username:string; vote_status:boolean; tokens:number} {
-    let newUser = {username:"common username", vote_status:false, tokens:100};
+function createUser(config: IUser):{username:string; vote_status:boolean; address:number} {
+    let newUser = {username:"common username", vote_status:false, address:0};
     newUser.username = config.username;
     return newUser;
 }
@@ -18,13 +18,6 @@ export function pushUserIntoJSON(userToPush:IUser){
         return "registration seccess"
     }
     else return "user already exists"
-}
-
-export function showUserTokensByUsername(username:string){
-    let data = JSON.parse(fs.readFileSync('datasource.json','utf8'));
-    var user = findUserByUsername(username)
-    if(user !== null) return user.tokens
-    else return null
 }
 
 function findUserByUsername(username:string){
